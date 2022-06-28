@@ -1,4 +1,4 @@
-# data
+# Data
 
 ## Manually curated dataset related
 
