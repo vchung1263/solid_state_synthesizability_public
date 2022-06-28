@@ -13,7 +13,6 @@ from skopt.utils import use_named_args
 from skopt import gp_minimize
 from skopt.callbacks import CheckpointSaver
 
-
 data_df = pd.read_json('data/set_3.json')
 
 p_df = data_df[data_df['synthesized_label'] == 'y']
@@ -111,20 +110,9 @@ hyper_model = LGBMClassifier(
     random_state=random_state).fit(X_train_filered, y_train)
 
 y_pred_prob = hyper_model.predict_proba(X_test_filtered)[:,1]
-
-fpr, tpr, thresholds = roc_curve(y_test, y_pred_prob)
-roc_auc = roc_auc_score(y_test, y_pred_prob)
-g_mean_list = np.sqrt(tpr * (1 - fpr))
-ix = np.nanargmax(g_mean_list)
-max_g_mean = np.nanmax(g_mean_list)
-
 y_hypo_pred_proba = hyper_model.predict_proba(X_hypo_filtered)[:,1]
-
 hypo_df['synth_score'] = y_hypo_pred_proba
-len(hypo_df[hypo_df['synth_score'] > thresholds[ix]])/len(hypo_df)
 
-print(max_g_mean, tpr[ix], fpr[ix], roc_auc, thresholds[ix])
-#0.746789703491021 0.8126410835214447 0.3137254901960784 0.7746647191608019 0.8266075395756016
 X_test_filtered['synth_score'] = y_pred_prob
 X_test_filtered['true_label'] = y_test
 

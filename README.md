@@ -27,4 +27,6 @@ The pu_learn_model.py contains the PU-Learning models used in the manuscript. It
 - The ./result folder contains 2 types of files: the csv files contain the tuned model input and predicted synthesizability score, while the pkl files contain the output of of the models
 - The ./checkpoint folder contains the checkpoint of the hyperparameter tuning for each models, which contains the hyperparameters and model performance of each iteration.
 
+## Publication
+Vincent Chung, Aron Walsh, and David Payne. Solid-State Synthesizability Predictions Using Positive-Unlabelled Learning from Curated Literature Data, In preparation
 
