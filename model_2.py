@@ -76,17 +76,10 @@ def evaluate_model(**search_space):
 
     roc_auc = roc_auc_score(y_test, y_prob_list)
 
-    print('roc score:', -roc_auc)
-
-    # want to max tpr, so negative it
     return -roc_auc
-
-print('before checkpoint')
 
 checkpoint_saver = CheckpointSaver('checkpoint/model_2.pkl')
 early_stop = DeltaYStopper(0.01, 20)
-
-print('begin hyper tuning')
 
 dataset_path = 'data'
 input_file = 'set_2.json'
@@ -119,7 +112,6 @@ input_df = feature_selection(all_data, X, y, number_of_feature=result.x[3])
 input_file_path = 'data/model_2_tuned_input.json'
 input_df.to_json(input_file_path)
 
-# remove the n_features from the search space for LGBM
 model = DecisionTreeClassifier(
     max_depth=result.x[0],
     min_samples_split=result.x[1],
@@ -153,23 +145,6 @@ n_df['synth_score'] = pnu_stats_max['prob_N_test']
 y_prob_list = list(p_df['synth_score']) + list(n_df['synth_score'])
 y_test = np.zeros(len(p_df) + len(n_df))
 y_test[:len(p_df)] = 1
-
-fpr, tpr, thresholds = roc_curve(y_test, y_prob_list)
-roc_auc = roc_auc_score(y_test, y_prob_list)
-
-g_mean_list = np.sqrt(tpr * (1 - fpr))
-ix = np.nanargmax(g_mean_list)
-
-opt_threshold = thresholds[ix]
-print('g-mean:', np.nanmax(g_mean_list))
-print('roc_auc:', roc_auc)
-
-print(len(hypo_df[hypo_df['synth_score'] > opt_threshold]), ',',
-      len(hypo_df[hypo_df['synth_score'] > opt_threshold]) / len(hypo_df), '%')
-print(len(n_df[n_df['synth_score'] > opt_threshold]), ',', len(n_df[n_df['synth_score'] > opt_threshold]) / len(n_df),
-      '%')
-print(len(p_df[p_df['synth_score'] > opt_threshold]), ',', len(p_df[p_df['synth_score'] > opt_threshold]) / len(p_df),
-      '%')
 
 # Saving Results
 

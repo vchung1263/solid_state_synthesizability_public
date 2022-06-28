@@ -67,10 +67,6 @@ def evaluate_model(**search_space):
     p_df = pul.df_P.copy()
     p_df['synth_score'] = pu_stats_max['prob_P_test']
 
-    alpha = 0.1  # proportion of positives in the unlabelled set
-    beta = 1  # proportion of positives in the labelled set
-    class_threshold = 0.5
-
     y_prob_list = list(p_df['synth_score']) + list(unlabelled_df['synth_score'])
     y_test = np.zeros(len(p_df) + len(unlabelled_df))
     y_test[:len(p_df)] = 1
@@ -85,12 +81,9 @@ all_data = pd.read_json(dataset_path + '/' + input_file)
 X = all_data.iloc[:, 7:-1]
 y = all_data.iloc[:, -1]
 input_file_path = 'data/model_3_input.json'
-print('before checkpoint')
 
 checkpoint_saver = CheckpointSaver('checkpoint/model_3.pkl')
 early_stop = DeltaYStopper(0.01, 20)
-
-print('begin hyper tuning')
 
 result = gp_minimize(func=evaluate_model,
                      dimensions=search_space,
@@ -102,20 +95,10 @@ result = gp_minimize(func=evaluate_model,
 
 result = load('checkpoint/model_3.pkl')
 
-def sensitivity_score(y_true, y_pred):
-    return recall_score(y_true, y_pred)
-
-def specificity_score(y_true, y_pred):
-    return recall_score(y_true, y_pred, pos_label=0)
-
-def g_mean_score(y_true, y_pred):
-    return np.sqrt(sensitivity_score(y_true, y_pred) * specificity_score(y_true, y_pred))
-
 input_df = feature_selection(all_data, X, y, number_of_feature=result.x[3])
 input_file_path = 'data/model_3_tuned_input.json'
 input_df.to_json(input_file_path)
 
-# remove the n_features from the search space for LGBM
 model = DecisionTreeClassifier(
     max_depth=result.x[0],
     min_samples_split=result.x[1],
@@ -143,21 +126,6 @@ p_df['synth_score'] = pu_stats_max['prob_P_test']
 y_prob_list = list(p_df['synth_score']) + list(unlabelled_df['synth_score'])
 y_test = np.zeros(len(p_df) + len(unlabelled_df))
 y_test[:len(p_df)] = 1
-
-fpr, tpr, thresholds = roc_curve(y_test, y_prob_list)
-
-g_mean_list = np.sqrt(tpr * (1 - fpr))
-ix = np.nanargmax(g_mean_list)
-
-opt_threshold = thresholds[ix]
-
-roc_auc = roc_auc_score(y_test, y_prob_list)
-print('g-mean:', np.nanmax(g_mean_list))
-print('roc_auc:', roc_auc)
-print(len(unlabelled_df[unlabelled_df['synth_score'] > opt_threshold]), ',',
-      len(unlabelled_df[unlabelled_df['synth_score'] > opt_threshold]) / len(unlabelled_df), '%')
-print(len(p_df[p_df['synth_score'] > opt_threshold]), ',', len(p_df[p_df['synth_score'] > opt_threshold]) / len(p_df),
-      '%')
 
 # Saving Results
 
