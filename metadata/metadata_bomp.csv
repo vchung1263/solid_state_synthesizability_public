@@ -1,0 +1,7 @@
+﻿Column header,Description
+composition,Composition of the binary oxide
+melting_point,Melting point of the binary oxide in Celcius
+pre_condition,the prefix of the melting point from the CRC Handbook of Chemistry and Physics 
+post_condition,the suffix of the melting point from the CRC Handbook of Chemistry and Physics 
+cation_oxi,oxidation state of the cations of the binary oxide
+reference,reference paper where the melting points were obtained for binary oxide if they are not in the CRC Handbook of Chemistry and Physics 

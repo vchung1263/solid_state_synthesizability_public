@@ -1,0 +1,15 @@
+﻿Column header,Description
+doi,doi of the examined entry
+composition,Composition of the examined entry
+paragraph_string,The beginning and the end of the paragraph where the automatic extraction took place
+max_temp(K),Highest heating temperature of the entry in Kelvin
+ratio_min,Ratio of the highest heating temperature from the entry over the minimum binary oxide melting point 
+ratio_max,Ratio of the highest heating temperature from the entry over the maximum binary oxide melting point 
+ratio_mean,Ratio of the highest heating temperature from the entry over the mean binary oxide melting point 
+correct target,Whether the target composition was synthesized
+correct method,Whether the material was synthesized via ss reaction based on Huo et al.'s definition
+correct max temperature,Whether the correct highest heating temperature was extracted
+max temperature,Highest heating temperature from the paper in Kelvin
+labelling based on Huo et al.,The synthesized method label according to Huo et al.'s definition
+synthesis method,The actual synthesis method used to synthesize the material
+comment,Addition comments and/or remarks of the automatic extraction

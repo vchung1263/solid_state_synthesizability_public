@@ -1,0 +1,11 @@
+Column header,Description
+system,Chemical system of the material
+mp_id,Materials Project identifier
+composition,Chemical composition (from MP)
+solid_state_synthesized,Whether the material has been solid-state synthesized upon re-examination
+new_label,new syntheszied label ('y'/yes or '?'/undetermined)
+result_from_WoS,The number of results from Web of Science when using the composition as input
+input_composition_search,The composition input used for the search in google scholar and Web of Science
+edited,Whether the changes have been made to the manually_curated_dataset.csv file
+number_of_result_examined,Number of results in Web of Science examined
+comment,Additional comments and/or remarks

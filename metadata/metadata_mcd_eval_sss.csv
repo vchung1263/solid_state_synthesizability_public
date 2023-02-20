@@ -1,0 +1,16 @@
+Column header,Description
+system,Chemical system of the material
+mp_id,Materials Project identifier
+composition,Chemical composition (from MP)
+solid_state_synthesized,Whether the material has been solid-state synthesized in the literature. '1': correct, '0': incorrect
+highest_heating_temperature(K),Whether the highest heating temperature is correct. '1': correct, '0': incorrectly extracted, 'miss': not extracted, null: no condition
+pressure_and_atmosphere,Whether the pressure and atmosphere conditions are correct. '1': correct, '0': incorrectly extracted, 'miss': not extracted, null: no condition
+mix_and_grind,Whether the mix and grind conditions are correct.'1': correct, '0': incorrectly extracted, 'miss': not extracted, null: no condition
+cooling,Whether the cooling conditions are correct.'1': correct, '0': incorrectly extracted, 'miss': not extracted, null: no condition
+number_of_heating_step,Whether the number of heating steps is correct.'1': correct, '0': incorrectly extracted
+precursor,Whether the precursors are correct.'1': correct, '0': incorrectly extracted, 'miss': not extracted, null: no/unclear precursor
+single_crystal,Whether the product crystallinity (if mentioned) is correct.'1': correct, '0': incorrectly extracted
+reference_year,Whether the reference year is correct.'1': correct, '0': incorrectly extracted
+reference,Whether the reference is correct.'1': correct, '0': incorrectly extracted
+edited,Whether the changes have been made to the manually_curated_dataset.csv file
+comment,Additional comments and/or remarks

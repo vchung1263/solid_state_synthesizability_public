@@ -1,0 +1,10 @@
+Column header,Description
+mp_id,Materials Project identifier
+icsd_ids,Inorganic Crystal Structure Database identifiers (from MP)
+composition,Chemical composition (from MP)
+general_synth_score,Synthesizability score predicted by model 3
+ss_synth_score,Solid-steate synthesizability score predicted by model 1
+synthesized,Whether the composition has been synthesized in the literature. Possible values are 'y', 'n' and '?' corresponding to 'yes', 'no' 'undetermined' respectively
+ss_synthesized,Whether the composition has been solid-state synthesized in the literature. Possible values are 'y', 'n' and '?' corresponding to 'yes', 'no' 'undetermined' respectively
+reference,The reference paper of each entry
+comment,Additional comments and/or remarks
